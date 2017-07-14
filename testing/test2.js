@@ -90,6 +90,8 @@ $("#testBtn").on("click", function () {
         map: map2
       });
       markerClick(marker);
+      console.log(marker);
+      console.log("MARKER SEPERATOR");
     }
   });
 
@@ -102,6 +104,9 @@ $("#testBtn").on("click", function () {
 //-------------------[test: get directions]-------------------//
 
 
+
+
+
 function initMap2 () {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -109,7 +114,7 @@ function initMap2 () {
           zoom: 7,
           center: {lat: 41.85, lng: -87.65}
         });
-        directionsDisplay.setMap(map);
+        directionsDisplay.setMap(map2);
 
         var onChangeHandler = function() {
           calculateAndDisplayRoute(directionsService, directionsDisplay);
