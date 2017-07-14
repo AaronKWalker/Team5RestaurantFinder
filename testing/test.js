@@ -29,6 +29,15 @@ var rating = 0;
 var cuisine = "";
 var currency = "";
 
+//variables for reviews
+
+var reviewer = "";
+var reviewDate = "";
+var reviewRating = 0;
+var rdescription="";
+var thumbnail = $("<img>");
+$(thumbnail).attr("src", "face.png");
+
 //creates blank map
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -126,9 +135,12 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
 
   //append number of stars for rating
   var divforStars = drawStars(rating);
+  drawStars(rating);
 
   //append the name and currency next to it (name is clickable)
   $(newdiv).append(currency);
+
+  $(newdiv).append(divforStars);
 
   var rname = $("<p id = 'name'></p>");
   //set data-name to name
@@ -175,26 +187,48 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
     .done(function(response) {
       console.log(response);
 
-      //for each of the reviews
-      for (var r = 0; r < 20; r ++){
+      //if there are no reviews
+      if (response.user_reviews.length === 0){
 
-      //get thumbnail, name, rating, data, and description
-      reviewer = response.user_reviews[r].review.user.name;
-      console.log("Person: " + reviewer);
-      reviewDate = response.user_reviews[r].review.review_time_friendly;
-      console.log("Date: " + reviewDate);
-      $(thumbnail).attr("src", response.user_reviews[r].review.user.profile_image);
-      reviewRating = response.user_reviews[r].review.rating;
-      console.log("Rating: " + reviewRating);
-      rdescription = response.user_reviews[r].review.review_text;
-      console.log(rdescription);
+        //append into html that there are no reviews yet
+        $(".oops").html("Sorry, there are no reviews for this restaurant yet!");
+      }
 
-      //push the name into the listp (just in case)
-      listP.push(reviewer);
+      else{
 
-      //call function for making div for reviews
-      makeDivforReviewers(reviewer, reviewDate, reviewRating, rdescription);
+          //for each of the reviews
+            for (var r = 0; r < response.user_reviews.length ; r ++){
+
+                //get thumbnail, name, rating, data, and description
+                reviewer = response.user_reviews[r].review.user.name;
+                console.log("Person: " + reviewer);
+
+                //if not undefined, get date
+                if (response.user_reviews[r].review.review_time_friendly !== undefined){
+                  reviewDate = response.user_reviews[r].review.review_time_friendly;
+                  console.log("Date: " + reviewDate);
+                }
+
+                //if not undefined, get thumbnail
+                if (response.user_reviews[r].review.user.profile_image !== undefined){
+                  // $(thumbnail).attr("src", response.user_reviews[r].review.user.profile_image);
+                  // console.log("thumbnail src: "+ response.user_reviews[r].review.user.profile_image);
+                }
+
+                reviewRating = response.user_reviews[r].review.rating;
+
+                //if not undefined, get rating
+                if (response.user_reviews[r].review.review_text !== undefined){
+                  console.log("Rating: " + reviewRating);
+                  rdescription = response.user_reviews[r].review.review_text;
+                  console.log(rdescription);
+                }
+
+
+                //call function for making div for reviews
+                makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdescription);
     }
+  }
   });
 
 
@@ -244,14 +278,14 @@ function drawStars(rating){
   }
 
 //function to make div for each person's ratings
-function makeDivforReviewers(reviewer, reviewDate, reviewRating, rdescription){
+function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdescription){
 
   //make a new div
   var div2 = $("<div class = 'ratingdiv'> </div>");
 
   //make a paragraph element and append the thumbnail and name into it
   var ava = $("<p id = 'avatar'></p>");
-  $(ava).append(thumbnail);
+  $(ava).append(thumbnail + "  ");
   $(ava).append(reviewer);
 
   //append paragraph element into the div2
@@ -265,10 +299,10 @@ function makeDivforReviewers(reviewer, reviewDate, reviewRating, rdescription){
   $(div2).append(rdescription);
 
   //append date into div2
-  $(div2).append(reviewDate);
+  $(div2).append("<p>" + reviewDate + "</p>");
 
   //append div2 to document
-  $("#light3").append(div2);
+  $(".oops").append(div2);
 }
 
 //listens for markers to be clicked
