@@ -149,8 +149,8 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   $(newdiv).append(rname);
 
   //append website url (clickable)
-  $(newdiv).append("<p id = 'website'> Website: " + website + "</p>");
-
+  $(newdiv).append("<a id = 'website'> Website </a>"); 
+  $("#website").attr("href", website);
   //append address
   $(newdiv).append("<p> Address: " + address + "</p>");
 
@@ -158,7 +158,7 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   $(newdiv).append("<p id = 'directions'>Directions</p>");
 
   //Cuisine type
-  $(newdiv).append("<p> Cuisines: " + cuisine + "</p>");
+  $(newdiv).append("<p> Cuisines: " + cuisine + "</p><hr>");
 
     //Append to html
     $(".light1").append(newdiv);

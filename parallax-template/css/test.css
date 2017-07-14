@@ -1,5 +1,20 @@
-#name
-#website
-address
+#name {
+	font-weight: bold;
+}
+#name:hover {
+	background-color: yellow;
+	font-size: 150%;
+}
+
+#website:hover {
+	color: red;
+}
+
+.light1 {
+	height:300px;
+    overflow:scroll;
+    overflow-x:hidden;
+/*address
 #directions
 cuisine 
+*/
