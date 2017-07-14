@@ -148,18 +148,30 @@ function initMap2 () {
 //-------------------[test: bring it all together]-------------------//
 
 
+function markerClick2(marker) {
+  marker.addListener("click", function(event) {
+    alert("click click click");
+    var info = this.position;
+    alert(info);
+  });
+}
+
+
+//initiate map3
 function initMap3 () {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var map3 = new google.maps.Map(document.getElementById('map3'), {
-    zoom: 7,
+    zoom: 11,
     center: testLatLong
   });
-  directionsDisplay.setMap(map2);
+  directionsDisplay.setMap(map3);
 
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
+  document.getElementById('start').addEventListener('change', onChangeHandler);
+  document.getElementById('end').addEventListener('change', onChangeHandler);
 }//-end of initMap3
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
@@ -179,7 +191,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
 //test button starts test
 $("#testBtn3").on("click", function () {
-  console.log("click!");
+  console.log("click3!");
 
   $.ajax({
     url: testURL,
@@ -192,7 +204,7 @@ $("#testBtn3").on("click", function () {
   .done(function(response) {
     console.log(response);
 
-    var map2 = new google.maps.Map(document.getElementById('map'), {
+    var map3 = new google.maps.Map(document.getElementById('map3'), {
       zoom: 12,//zoom set to 12 so all markers are seen at once
       center: testLatLong
     });
@@ -215,12 +227,16 @@ $("#testBtn3").on("click", function () {
 
       var marker = new google.maps.Marker({
         position: phiLambda,
-        map: map2
+        map: map3
       });
-      markerClick(marker);
+      markerClick2(marker);
       console.log(marker);
       console.log("MARKER SEPERATOR");
     }
   });
+
+});
+
+$(map3).on("click", this, function() {
 
 });
