@@ -88,4 +88,7 @@ $("#testBtn").on("click", function () {
 
 });
 
-//TODO: create more test functions that grab other restaurant info and have it displayed when marker is clicked
+
+
+
+//-------------------[test: get directions]-------------------//
