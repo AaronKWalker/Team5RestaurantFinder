@@ -2,18 +2,26 @@
 	font-weight: bold;
 }
 #name:hover {
-	background-color: yellow;
 	font-size: 150%;
+	cursor:pointer;
+	text-decoration: underline;
+	color: red;
 }
 
 #website:hover {
 	color: red;
+	cursor:pointer;
 }
 
 .light1 {
 	height:300px;
     overflow:scroll;
     overflow-x:hidden;
+}
+
+reviewer {
+
+}
 /*address
 #directions
 cuisine 
