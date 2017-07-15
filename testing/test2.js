@@ -7,6 +7,7 @@ function callMe(){
   initMap();
   initMap2();
   initMap3();
+  initMap4();
 }
 
 
@@ -266,3 +267,128 @@ $("#testBtn3").on("click", function () {
   });
 
 }); // -end of testBtn3 click
+
+
+
+
+//-------------------[test: written directions]-------------------//
+
+
+var markerLatLong4
+var startAddress4
+var testStartAdd4 = "Austin, TX";
+$(".directionSearch").hide();
+
+//initiate map3
+function initMap4() {
+  var map4 = new google.maps.Map(document.getElementById('map4'), {
+    zoom: 14,
+    center: testLatLong
+  });
+} //-end of initMap4-
+
+
+//listen for marker to be clicked
+function markerClick4(marker) {
+  marker.addListener("click", function(event) {
+    markerLatLong4 = this.position;
+    showSearch4();
+    console.log("marker clicked.  markerLatLong: " + markerLatLong4);
+  });
+}
+
+function showSearch4() {
+  $(".directionSearch").show();
+}
+
+
+//listen for go button to be clicked
+$("#goBtn4").on("click", function() {
+  if ($("#startingPoint4").attr("value") != "undefined") {
+    startAddress4 = $("#startingPoint4").val();
+    console.log("staring address is: " + startAddress4);
+    showDirections();
+  }
+});
+
+
+function showDirections () {
+  var directionsService4 = new google.maps.DirectionsService;
+  var directionsDisplay4 = new google.maps.DirectionsRenderer;
+  var map4 = new google.maps.Map(document.getElementById('map4'), {
+    zoom: 11,
+    center: markerLatLong4
+  });
+  directionsDisplay4.setMap(map4);
+  directionsDisplay4.setPanel(document.getElementById('right-panel'));
+
+  var onChangeHandler = function() {
+    calculateAndDisplayRoute4(directionsService4, directionsDisplay4);
+  };
+
+  onChangeHandler();
+}
+
+
+function calculateAndDisplayRoute4(directionsService4, directionsDisplay4) {
+  directionsService4.route({
+    origin: startAddress4,
+    destination: markerLatLong4,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay4.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
+  });
+}
+
+
+//test button starts test
+$("#testBtn4").on("click", function () {
+  console.log("click4!");
+
+  $.ajax({
+    url: testURL,
+    method: "GET",
+    headers:{
+      "user-key":zoAPI
+    }
+  })
+  //after getting the response
+  .done(function(response) {
+    console.log(response);
+
+    var map4 = new google.maps.Map(document.getElementById('map4'), {
+      zoom: 12,//zoom set to 12 so all markers are seen at once
+      center: testLatLong
+    });
+
+    //for each of the objects returned
+
+    for (var m =0; m < response.restaurants.length; m ++){
+
+      latitude = response.restaurants[m].restaurant.location.latitude;
+      latitude = parseFloat(latitude);
+      longitude = response.restaurants[m].restaurant.location.longitude;
+      longitude = parseFloat(longitude);
+      console.log(latitude);
+      console.log(longitude);
+      console.log("SEPERATOR");
+
+
+      //create a marker for each object returned
+      var phiLambda = {lat: latitude, lng: longitude};
+
+      var marker = new google.maps.Marker({
+        position: phiLambda,
+        map: map4
+      });
+      markerClick4(marker);
+      console.log(marker);
+      console.log("MARKER SEPERATOR");
+    }
+  });
+
+}); // -end of testBtn4 click
