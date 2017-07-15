@@ -166,6 +166,7 @@ function markerClick2(marker) {
   marker.addListener("click", function(event) {
     markerLatLong = this.position;
     showSearch();
+    console.log("marker clicked.  markerLatLong: " + markerLatLong);
   });
 }
 
@@ -176,9 +177,9 @@ function showSearch() {
 
 //listen for go button to be clicked
 $("#goBtn").on("click", function() {
-  if ($("#startingPioint").attr("value") != "undefined") {
-    startAddress = $("#startingPioint").val();
-    console.log("staring address is: " + testStartAdd);
+  if ($("#startingPoint").attr("value") != "undefined") {
+    startAddress = $("#startingPoint").val();
+    console.log("staring address is: " + startAddress);
     showDirections();
   }
 });
@@ -205,7 +206,7 @@ function showDirections () {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
-    origin: testStartAdd,
+    origin: startAddress,
     destination: markerLatLong,
     travelMode: 'DRIVING'
   }, function(response, status) {
