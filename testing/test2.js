@@ -235,8 +235,4 @@ $("#testBtn3").on("click", function () {
     }
   });
 
-});
-
-$(map3).on("click", this, function() {
-
-});
+}); // -end of testBtn3 click
