@@ -147,37 +147,66 @@ function initMap2 () {
 
 //-------------------[test: bring it all together]-------------------//
 
+var markerLatLong
+var startAddress
+var testStartAdd = "Austin, TX";
+$(".directionSearch").hide();
 
+//initiate map3
+function initMap3() {
+  var map3 = new google.maps.Map(document.getElementById('map3'), {
+    zoom: 14,
+    center: testLatLong
+  });
+} //-end of initMap3-
+
+
+//listen for marker to be clicked
 function markerClick2(marker) {
   marker.addListener("click", function(event) {
-    alert("click click click");
-    var info = this.position;
-    alert(info);
+    markerLatLong = this.position;
+    showSearch();
   });
 }
 
+function showSearch() {
+  $(".directionSearch").show();
+}
 
-//initiate map3
-function initMap3 () {
+
+//listen for go button to be clicked
+$("#goBtn").on("click", function() {
+  if ($("#startingPioint").attr("value") != "undefined") {
+    startAddress = $("#startingPioint").val();
+    console.log("staring address is: " + testStartAdd);
+    showDirections();
+  }
+});
+
+
+function showDirections () {
   var directionsService = new google.maps.DirectionsService;
   var directionsDisplay = new google.maps.DirectionsRenderer;
   var map3 = new google.maps.Map(document.getElementById('map3'), {
     zoom: 11,
-    center: testLatLong
+    center: markerLatLong
   });
   directionsDisplay.setMap(map3);
 
   var onChangeHandler = function() {
     calculateAndDisplayRoute(directionsService, directionsDisplay);
   };
-  document.getElementById('start').addEventListener('change', onChangeHandler);
-  document.getElementById('end').addEventListener('change', onChangeHandler);
-}//-end of initMap3
+
+  onChangeHandler();
+  // document.getElementById('start').addEventListener('change', onChangeHandler);
+  // document.getElementById('end').addEventListener('change', onChangeHandler);
+}
+
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   directionsService.route({
-    origin: document.getElementById('start').value,
-    destination: document.getElementById('end').value,
+    origin: testStartAdd,
+    destination: markerLatLong,
     travelMode: 'DRIVING'
   }, function(response, status) {
     if (status === 'OK') {
