@@ -21,7 +21,7 @@ var markerLatLong;
 var startAddress;
 var markerArray = [];
 var addressArray = [];
-var restaurantCount = 0;
+var restIndex
 
 //lat & long variables
 var latitude;
@@ -68,7 +68,7 @@ var resID = "";
 
 //whenever the search bar is clicked
 $(document).on("click","#searchbtn", function(){
-
+  restIndex = 0;
 
   //get the input value and store it as the search variable
   search = $("#mysearch").val().trim();
@@ -202,8 +202,8 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   addressArray.push(address);
 
   //Clickable Directions
-  $(newdiv).append("<p class = 'directions' data='" + restaurantCount + "'>Directions</p>");
-  restaurantCount++;
+  $(newdiv).append("<p class = 'directions' data='" + restIndex + "'>Directions</p>");
+  restIndex++;
 
   //Cuisine type
   $(newdiv).append("<p> Cuisines: " + cuisine + "</p><hr>");
@@ -427,7 +427,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
 
 $(".light1").on("click", ".directions", function(){
+  showSearch();
   var restNum = $(this).attr("data");
-
-
+  markerLatLong = addressArray[restNum];
 });
