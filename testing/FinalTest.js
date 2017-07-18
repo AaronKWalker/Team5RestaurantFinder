@@ -2,17 +2,17 @@
 
 var zoAPI = "394d1e7d79d05683913b696732d33f83";
 
-var testURL = "https://developers.zomato.com/api/v2.1/search?entity_id=278&entity_type=city&radius=20000&cuisines=55&count=15&radius=25%20mi" //grabed from /search @ zomato
+var testURL = "https://developers.zomato.com/api/v2.1/search?entity_id=278&entity_type=city&radius=20000&cuisines=55&count=15&radius=25%20mi"; //grabed from /search @ zomato
 
 
 
 //-------------------[Google Maps section]-------------------//
 
 var testLatLong = {lat: 30.2471972222, lng: -97.750725}; //Austin, TX
-var markerLatLong
-var startAddress
-var latitude
-var longitude
+var markerLatLong;
+var startAddress;
+var latitude;
+var longitude;
 
 
 //creates blank map
@@ -94,8 +94,8 @@ $("#goBtn").on("click", function() {
 
 //creates map and side panel
 function showDirections () {
-  var directionsService = new google.maps.DirectionsService;
-  var directionsDisplay = new google.maps.DirectionsRenderer;
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 11,
     center: markerLatLong

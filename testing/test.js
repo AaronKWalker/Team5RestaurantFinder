@@ -1,12 +1,25 @@
 // var apiKey = ;
 //HI!
 
+//hide directions bar
+//hide the search bar and button
+$(".directionSearch").hide();
+
 //var for zomato API
 var zoAPI = "394d1e7d79d05683913b696732d33f83";
 
-//cuisine search for locations
+//var for geocoding api
+var geo = "AIzaSyDTB-hKVeSeXvEYsU_FrYaLgLm9xPL3Ckw";
 
+//cuisine search for locations
 var search;
+
+//city search for locations
+var city;
+
+// variables for google maps
+var markerLatLong;
+var startAddress;
 
 //lat & long variables
 var latitude;
@@ -56,8 +69,24 @@ $(document).on("click","#searchbtn", function(){
 
 
   //get the input value and store it as the search variable
-  search = "";
   search = $("#mysearch").val().trim();
+  city = $("#citysearch").val().trim();
+
+  //get the geocode lat and long
+  var geoURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city+ "&key=" + geo;
+
+  //get lat and long with ajax request
+  $.ajax({
+    url: geoURL,
+    method: "GET",
+
+  })
+  //after getting the response
+  .done(function(response) {
+    console.log(response);
+  });
+
+
 
 //getting the response for zomato locations API
 var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=278&entity_type=city&q=" + search;
@@ -149,7 +178,7 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   $(newdiv).append(rname);
 
   //append website url (clickable)
-  $(newdiv).append("<a id = 'website'> Website </a>"); 
+  $(newdiv).append("<a id = 'website'> Website </a>");
   $("#website").attr("href", website);
   //append address
   $(newdiv).append("<p> Address: " + address + "</p>");
@@ -280,6 +309,9 @@ function drawStars(rating){
 //function to make div for each person's ratings
 function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdescription){
 
+  //clear div from the reviews it had before
+  $(".oops").html("");
+
   //make a new div
   var div2 = $("<div class = 'ratingdiv'> </div>");
 
@@ -305,9 +337,64 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
   $(".oops").append(div2);
 }
 
-//listens for markers to be clicked
+
+
+
+
+//google maps section
+//listen for marker to be clicked
 function markerClick(marker) {
-  marker.addListener("click", function() {
-    alert("marker!");
+  marker.addListener("click", function(event) {
+    markerLatLong = this.position;
+    showSearch(); //show the search bar and button
+  });
+}
+
+
+//show the search bar and button
+function showSearch() {
+  $(".directionSearch").show();
+}
+
+//listen for go button to be clicked
+$("#goBtn").on("click", function() {
+  if ($("#startingPoint").attr("value") != "undefined") {
+    startAddress = $("#startingPoint").val();
+    showDirections();
+  }
+});
+
+
+//creates map and side panel
+function showDirections () {
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 11,
+    center: markerLatLong
+  });
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('right-panel'));
+
+  var onChangeHandler = function() {
+    calculateAndDisplayRoute(directionsService, directionsDisplay);
+  };
+
+  onChangeHandler();
+}
+
+
+//shows visual directions on map
+function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  directionsService.route({
+    origin: startAddress,
+    destination: markerLatLong,
+    travelMode: 'DRIVING'
+  }, function(response, status) {
+    if (status === 'OK') {
+      directionsDisplay.setDirections(response);
+    } else {
+      window.alert('Directions request failed due to ' + status);
+    }
   });
 }
