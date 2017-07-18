@@ -8,14 +8,13 @@ $(".directionSearch").hide();
 //var for zomato API
 var zoAPI = "394d1e7d79d05683913b696732d33f83";
 
-//var for geocoding api
-var geo = "AIzaSyDTB-hKVeSeXvEYsU_FrYaLgLm9xPL3Ckw";
 
 //cuisine search for locations
 var search;
 
 //city search for locations
 var city;
+var cityID;
 
 // variables for google maps
 var markerLatLong;
@@ -25,8 +24,8 @@ var startAddress;
 var latitude;
 var longitude;
 var testLatLong = {
-  lat: 30.2672,
-  lng: -97.7421
+  lat: 30.249375,
+  lng: -97.7548222222
 };
 
 //array for list of restaurants, and list of reviews
@@ -54,7 +53,7 @@ $(thumbnail).attr("src", "face.png");
 //creates blank map
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 14,
+    zoom: 10,
     center: testLatLong
   });
 } //-end of initMap-""
@@ -73,23 +72,33 @@ $(document).on("click","#searchbtn", function(){
   city = $("#citysearch").val().trim();
 
   //get the geocode lat and long
-  var geoURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + city+ "&key=" + geo;
+  var cityURL = "https://developers.zomato.com/api/v2.1/locations?query="+city;
 
   //get lat and long with ajax request
   $.ajax({
-    url: geoURL,
+    url: cityURL,
     method: "GET",
-
+    headers:{
+      "user-key": zoAPI
+    }
   })
   //after getting the response
-  .done(function(response) {
-    console.log(response);
-  });
+  .done(function(hello) {
+    console.log(hello);
+
+    cityID = hello.location_suggestions[0].entity_id;
+    console.log(cityID);
+
+    testLatLong.lat = hello.location_suggestions[0].latitude;
+    testLatLong.lng = hello.location_suggestions[0].longitude;
+
+    console.log(testLatLong.lat);
+    console.log(testLatLong.lng);
 
 
 
 //getting the response for zomato locations API
-var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=278&entity_type=city&q=" + search;
+var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + cityID + "&entity_type=city&q=" + search;
 
   console.log("The input: " + search);
   console.log("url: " + locationURL);
@@ -105,11 +114,16 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=278&en
   .done(function(response) {
     console.log(response);
 
+
+    console.log("test" + testLatLong.lat);
+    console.log("test" + testLatLong.lng);
     //where it centers
     var map2 = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,//zoom set to 12 so all markers are seen at once
       center: testLatLong
     });
+    //clear the restaurants div
+    $(".light1").html("");
 
     //for each of the objects returned
     for (var i =0; i < response.restaurants.length; i ++){
@@ -153,6 +167,7 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=278&en
 
 
   });
+});
 });
 
 
@@ -224,6 +239,11 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
       }
 
       else{
+          //change the reviews heading
+          $("h5").html("Reviews");
+
+          //clear the panel
+          $(".oops").html("");
 
           //for each of the reviews
             for (var r = 0; r < response.user_reviews.length ; r ++){
@@ -359,6 +379,8 @@ function showSearch() {
 //listen for go button to be clicked
 $("#goBtn").on("click", function() {
   if ($("#startingPoint").attr("value") != "undefined") {
+    $("h5").html("Directions");
+    $(".oops").html("");
     startAddress = $("#startingPoint").val();
     showDirections();
   }
