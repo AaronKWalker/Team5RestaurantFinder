@@ -19,6 +19,9 @@ var cityID;
 // variables for google maps
 var markerLatLong;
 var startAddress;
+var markerArray = [];
+var addressArray = [];
+var restaurantCount = 0;
 
 //lat & long variables
 var latitude;
@@ -162,10 +165,9 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
         map: map2
       });
       console.log("made a new marker");
+      markerArray.push(marker);
       markerClick(marker);
     }
-
-
   });
 });
 });
@@ -197,9 +199,11 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   $("#website").attr("href", website);
   //append address
   $(newdiv).append("<p> Address: " + address + "</p>");
+  addressArray.push(address);
 
   //Clickable Directions
-  $(newdiv).append("<p id = 'directions'>Directions</p>");
+  $(newdiv).append("<p class = 'directions' data='" + restaurantCount + "'>Directions</p>");
+  restaurantCount++;
 
   //Cuisine type
   $(newdiv).append("<p> Cuisines: " + cuisine + "</p><hr>");
@@ -420,3 +424,10 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     }
   });
 }
+
+
+$(".light1").on("click", ".directions", function(){
+  var restNum = $(this).attr("data");
+
+
+});
