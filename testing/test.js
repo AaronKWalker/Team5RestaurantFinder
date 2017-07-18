@@ -149,7 +149,7 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
   $(newdiv).append(rname);
 
   //append website url (clickable)
-  $(newdiv).append("<a id = 'website'> Website </a>"); 
+  $(newdiv).append("<a id = 'website'> Website </a>");
   $("#website").attr("href", website);
   //append address
   $(newdiv).append("<p> Address: " + address + "</p>");
@@ -279,6 +279,9 @@ function drawStars(rating){
 
 //function to make div for each person's ratings
 function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdescription){
+
+  //clear div from the reviews it had before
+  $(".oops").html("");
 
   //make a new div
   var div2 = $("<div class = 'ratingdiv'> </div>");
