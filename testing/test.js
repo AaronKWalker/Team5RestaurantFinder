@@ -302,7 +302,7 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
   $(div2).append(rdescription);
 
   //append date into div2
-  $(div2).append("<p>" + reviewDate + "</p>");
+  $(div2).append("<p>" + reviewDate + "</p><hr>");
 
   //append div2 to document
   $(".oops").append(div2);
