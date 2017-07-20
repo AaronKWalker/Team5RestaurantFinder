@@ -59,3 +59,15 @@ p {
 footer.page-footer {
   margin: 0;
 }
+
+.rbox{
+  overflow: scroll;
+  border-style: dotted;
+  border-color: teal;
+  height: 400px;
+
+}
+
+.gallery-item{
+  padding-left: 50px;
+}
