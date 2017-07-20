@@ -19,10 +19,13 @@
     overflow-x:hidden;
 }
 
-reviewer {
-
+.directions {
+	cursor:pointer;
+	color: #0000FF;
 }
-/*address
-#directions
-cuisine 
-*/
+
+.directions:hover {
+	color: red;
+	cursor:pointer;
+	text-decoration: underline;
+}

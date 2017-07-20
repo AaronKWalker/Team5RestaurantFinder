@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Restaurant Finder</title>
 
   <!-- CSS  -->
@@ -18,36 +19,20 @@
 <!-- Boostrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Google map api script  -->
-  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBEylmL-dj2EJ784FZAvrx677Y3Be19sg&callback=initMap"
-  type="text/javascript"></script>
+  <!-- Google map api script  -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBEylmL-dj2EJ784FZAvrx677Y3Be19sg&callback=initMap" type="text/javascript"></script>
 
 
 </head>
 
 <body>
-<!-- Navigation bar -->
-  <!-- <nav class="white" role="navigation">
-    <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo">Restaurant Finder</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
-    </div>
-  </nav> -->
-
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="container">
         <br><br>
         <h1 class="header center teal-text text-lighten-2">Restaurant Finder</h1>
         <div class="row center">
-          <h2 class="header col s12 light" id = "tagline">A website to help you find the best around you</h2>
+          <h2 class="header col s12 light" id="tagline">A website to help you find the best around you</h2>
         </div>
         <div class="row center">
           <a href="index.html#middlenav" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Find Restaurant</a>
@@ -59,73 +44,79 @@
     <div class="parallax"><img src="https://static1.squarespace.com/static/567b15979cadb6554da642d7/569ffe9305f8e24135a6f42e/569ffe9305f8e24135a6f42f/1453326002972/CAFE-EUGENE-886WEB.jpg?format=2500w" alt="Plates of food"></div>
   </div>
 
-<!-- search box -->
-<nav class="white" role="navigation">
-    <div class="nav-wrapper container" id = "middlenav">
+  <!-- search box -->
+  <nav class="white" role="navigation">
+    <div class="nav-wrapper container" id="middlenav">
       <div class="col-lg-3">
       </div>
       <div class="col-lg-3">
-    <div class="input-group" align = "left" >
-      <input type="search" id = "mysearch" style="font-size:18px color: #4286f4" placeholder="What to eat?">
-      <span class="input-group-btn">
+        <div class="input-group" align="left">
+          <input type="search" id="mysearch" style="font-size:18px color: #4286f4" placeholder="What to eat?">
+          <span class="input-group-btn">
       </span>
-    </div><!-- /input-group -->
-  </div>
-  <div class="col-lg-3">
-    <div class="input-group" align = "right">
-      <input type="search" id = "citysearch" style="font-size:18px color: #4286f4" placeholder="Enter your city">
-      <span class="input-group-btn">
+        </div>
+        <!-- /input-group -->
+      </div>
+      <div class="col-lg-3">
+        <div class="input-group" align="right">
+          <input type="search" id="citysearch" style="font-size:18px color: #4286f4" placeholder="Enter your city">
+          <span class="input-group-btn">
         <button class="btn btn-default" id= "searchbtn" type="button">Search!</button>
       </span>
-    </div>
-  </div><!-- /.col-lg-6 -->
+        </div>
+      </div>
+      <!-- /.col-lg-6 -->
     </div>
   </nav>
   <!-- map -->
-  <!-- <div class="container">
-    <div class="section"> -->
+   <div class="container">
+    <div class="section">
 
-      <div class="container">
-        <div class="section">
-
-  <div class = "row">
-  <div class="parallax-container valign-wrapper" style="float: left">
-    <div class="section no-pad-bot">
-      <div class="container">
-        <div class="row center" id = "map" style = " height: 400px; width: 100%;">
-          <h5 class="header col s12 light">Map PlaceHolder</h5>
+  <div class="row">
+    <div class="parallax-container valign-wrapper" style="float: left">
+      <div class="section no-pad-bot">
+        <div class="container">
+          <div class="row center" id="map" style=" height: 400px; width: 100%;">
+            <h5 class="header col s12 light">Map PlaceHolder</h5>
+          </div>
         </div>
       </div>
+      <div class="parallax"></div>
     </div>
-    <div class="parallax" ></div>
   </div>
-</div>
-
-
-
-  <div class="container">
-    <div class="section">
+    </div>
+   </div>
 
     <!-- search box -->
 <nav class="white directionSearch" role="navigation">
     <div class="nav-wrapper container " id = "middlenav">
       <div class="col-lg-3">
       </div>
+
       <div class="col-lg-6">
-    <div class="input-group" align = "right">
-      <span class="input-group-btn">
-        <input type="search" id="startingPoint"  style="font-size:18px color: #4286f4" placeholder="Enter your address">
-        <button type="button" name="button" id="goBtn" class=" btn btn-default directionSearch">GO</button>
-      </span>
-    </div>
-  </div>
+        <div class="input-group" align="right">
+          <span class="input-group-btn">
+              <input type="search" id="startingPoint" class="directionSearch" style="font-size:18px color: #4286f4" placeholder="Enter your address- ex:1100 Congress Ave, Austin, TX 78701
+ ">
+              <button type="button" name="button" id="goBtn" class=" btn btn-default directionSearch">GO</button>
+        </span>
+        </div>
+        <!-- /input-group -->
+      </div>
+      <div class="col-lg-3">
+        <div class="input-group" align="right">
+          <span class="input-group-btn">
+        </span>
+        </div>
+      </div>
+      <!-- /.col-lg-6 -->
     </div>
   </nav>
 
 
-  <!-- <div class="container">
-    <div class="section"> -->
-
+  <!-- End of middle nav bar-->
+  <div class="container">
+    <div class="section">
       <!--   Icon Section   -->
       <div class="row bbox">
         <div class="col s12 m4">
@@ -147,14 +138,7 @@
           </div>
         </div>
 
-        <!-- <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center brown-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Reviews</h5>
 
-            <div class="light3"></div>
-          </div>
-        </div> -->
       </div>
 
     </div>
@@ -163,7 +147,7 @@
 
 
 
-      <div class="row recipediv" style = "display: none;">
+      <div class="row recipediv" style = "display: none; margin-left: 100px; margin-right: 50px;">
         <div class="col s12 center ">
           <h3><i class="mdi-content-send brown-text"></i></h3>
           <h4>If You Wanna Stay in Jammies:</h4>
@@ -175,15 +159,14 @@
         </div>
       </div>
 
-    </div>
-  </div>
+
+
 
 
   <div class="parallax-container valign-wrapper">
     <div class="section no-pad-bot">
       <div class="container">
         <div class="row center">
-          <!-- <h5 class="header col s12 light">A modern responsive front-end framework based on Material Design</h5> -->
         </div>
       </div>
     </div>
@@ -196,16 +179,9 @@
         <div class="col l6 s12">
           <h7 class="white-text">Team Bio</h7>
           <p class="grey-text text-lighten-4">We are a team of fledgling, not-yet calloused developers working on this project like it's our full time job. We love food and trying new places and created this website so you can too. </p>
-  </div>
+        </div>
         <div class="col l3 s12">
-
-          <!-- <h5 class="white-text">Settings</h5>
-          <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
-            <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
-          </ul> -->
+          <!-- Connect -->
 
         </div>
         <div class="col l3 s12">
@@ -215,36 +191,33 @@
             <li><a class="white-text" href="https://ashxdiep.github.io/">Ashley Diep</a></li>
             <li><a class="white-text" href="https://hfrodriguez928.github.io/Bootstrap-Portfolio/">Hayley Rodriguez</a></li>
             <li><a class="white-text" href="https://sapanaraut.github.io/Bootstrap-Portfolio/">Sapana Raut</a></li>
-          <div>
+            <div>
+            </div>
+          </div>
+        </div>
+        <!-- Footer -->
+      </div>
+      <div class="footer-copyright">
+        <div class="container">
+          Copyright &copy; 2017 Team Five
         </div>
       </div>
+
     </div>
-
-      <div class="footer-copyright">
-
-  </div>
-
-      <div class="container">
-        Copyright &copy; 2017 Team Five
-      </div>
-    </div>
-
-
-    <!--  Scripts-->
-
-  </div>
   </footer>
+
+  <!-- footer ends -->
 
 
   <!--  Scripts-->
 
-]
 
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="js/materialize.js"></script>
   <script src="js/init.js"></script>
-  <script src ="../testing/test.js"></script>
+  <script src="../testing/test.js"></script>
 
-  </body>
+</body>
+
 </html>
