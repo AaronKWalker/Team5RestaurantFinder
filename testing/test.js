@@ -1,13 +1,12 @@
-// var apiKey = ;
-//HI!
+
 
 //hide directions bar
 //hide the search bar and button
 $(".directionSearch").hide();
-
+$(".bbox").hide();
+$(".lol").hide();
 //var for zomato API
 var zoAPI = "394d1e7d79d05683913b696732d33f83";
-
 
 //cuisine search for locations
 var search;
@@ -21,7 +20,7 @@ var markerLatLong;
 var startAddress;
 var markerArray = [];
 var addressArray = [];
-var restIndex
+var restIndex;
 
 //lat & long variables
 var latitude;
@@ -31,9 +30,7 @@ var testLatLong = {
   lng: -97.7548222222
 };
 
-//array for list of restaurants, and list of reviews
-var listR = [];
-var listP = [];
+
 
 //variables for name of restaurant, website url, address, currency, rating
 // and cuisine type
@@ -50,8 +47,15 @@ var reviewer = "";
 var reviewDate = "";
 var reviewRating = 0;
 var rdescription="";
-var thumbnail = $("<img>");
-$(thumbnail).attr("src", "face.png");
+var thumbnail;
+
+
+//variables for recipes
+var instructionslink;
+var calories;
+var recipepic;
+var ingredients;
+var recipename;
 
 //creates blank map
 function initMap() {
@@ -68,11 +72,15 @@ var resID = "";
 
 //whenever the search bar is clicked
 $(document).on("click","#searchbtn", function(){
-  restIndex = 0;
+
+  $(".recipediv").show();
 
   //get the input value and store it as the search variable
   search = $("#mysearch").val().trim();
   city = $("#citysearch").val().trim();
+
+  //change the html shit of recipes
+  changehtml();
 
   //get the geocode lat and long
   var cityURL = "https://developers.zomato.com/api/v2.1/locations?query="+city;
@@ -90,13 +98,13 @@ $(document).on("click","#searchbtn", function(){
     console.log(hello);
 
     cityID = hello.location_suggestions[0].entity_id;
-    console.log(cityID);
+    //console.log(cityID);
 
     testLatLong.lat = hello.location_suggestions[0].latitude;
     testLatLong.lng = hello.location_suggestions[0].longitude;
 
-    console.log(testLatLong.lat);
-    console.log(testLatLong.lng);
+    //console.log(testLatLong.lat);
+    //console.log(testLatLong.lng);
 
 
 
@@ -115,11 +123,11 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
   })
   //after getting the response
   .done(function(response) {
-    console.log(response);
+    //console.log(response);
 
 
-    console.log("test" + testLatLong.lat);
-    console.log("test" + testLatLong.lng);
+    //console.log("test" + testLatLong.lat);
+    //console.log("test" + testLatLong.lng);
     //where it centers
     var map2 = new google.maps.Map(document.getElementById('map'), {
       zoom: 12,//zoom set to 12 so all markers are seen at once
@@ -141,8 +149,6 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
       currency = response.restaurants[i].restaurant.currency;
       resID = response.restaurants[i].restaurant.id;
 
-      //push the name of restaurant to list of restaurants
-      listR.push(resID);
 
       //make a div which appends to restaurants nearby
       makeDivforNearbyR(resID, name, website, address, rating, cuisine, currency);
@@ -152,9 +158,9 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
       latitude = parseFloat(latitude);
       longitude = response.restaurants[i].restaurant.location.longitude;
       longitude = parseFloat(longitude);
-      console.log(latitude);
-      console.log(longitude);
-      console.log("SEPERATOR");
+      //console.log(latitude);
+      //console.log(longitude);
+      //console.log("SEPERATOR");
 
 
       //create a marker for each object returned
@@ -168,6 +174,8 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
       markerArray.push(marker);
       markerClick(marker);
     }
+
+    $(".bbox").show();
   });
 });
 });
@@ -210,10 +218,13 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
 
     //Append to html
     $(".light1").append(newdiv);
+
+
   }
 
   //whenever the name of place is clicked
   $(document).on("click", "#name", function(){
+
 
   //retrieve dataname value from whats clicked (This is the resID)
   var restaurantName = $(this).attr("data-name");
@@ -234,12 +245,13 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
     //after getting the response
     .done(function(response) {
       console.log(response);
-
+      $(".lol").show();
       //if there are no reviews
       if (response.user_reviews.length === 0){
 
         //append into html that there are no reviews yet
         $(".oops").html("Sorry, there are no reviews for this restaurant yet!");
+
       }
 
       else{
@@ -254,12 +266,12 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
 
                 //get thumbnail, name, rating, data, and description
                 reviewer = response.user_reviews[r].review.user.name;
-                console.log("Person: " + reviewer);
-
+                //console.log("Person: " + reviewer);
+                thumbnail = response.user_reviews[r].review.user.profile_image;
                 //if not undefined, get date
                 if (response.user_reviews[r].review.review_time_friendly !== undefined){
                   reviewDate = response.user_reviews[r].review.review_time_friendly;
-                  console.log("Date: " + reviewDate);
+                  //console.log("Date: " + reviewDate);
                 }
 
                 //if not undefined, get thumbnail
@@ -274,7 +286,7 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
                 if (response.user_reviews[r].review.review_text !== undefined){
                   console.log("Rating: " + reviewRating);
                   rdescription = response.user_reviews[r].review.review_text;
-                  console.log(rdescription);
+                  //console.log(rdescription);
                 }
 
 
@@ -341,7 +353,7 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
 
   //make a paragraph element and append the thumbnail and name into it
   var ava = $("<p id = 'avatar'></p>");
-  $(ava).append(thumbnail + "  ");
+  $(ava).append("<img src = '" + thumbnail + "' style = ' width: 50px; height: 50px;'>   " );
   $(ava).append(reviewer);
 
   //append paragraph element into the div2
@@ -359,6 +371,7 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
 
   //append div2 to document
   $(".oops").append(div2);
+
 }
 
 
@@ -370,6 +383,7 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
 function markerClick(marker) {
   marker.addListener("click", function(event) {
     markerLatLong = this.position;
+
     showSearch(); //show the search bar and button
   });
 }
@@ -425,9 +439,75 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay) {
   });
 }
 
+//function to change html
+function changehtml(){
+  console.log("i'm inside change html");
+  var apiEndpoint = 'https://api.edamam.com/search';
 
-$(".light1").on("click", ".directions", function(){
-  showSearch();
-  var restNum = $(this).attr("data");
-  markerLatLong = addressArray[restNum];
-});
+  var apiData = {
+    // the app ID and key work like a library card
+    // every time we're borrowing some data from Edamam (the API service provider)
+    // we use these to let Edamam know it's us
+    _app_id: '602e4c99',
+    _app_key: 'badc73a4282fd038b7547e9c5854a2d6',
+    // q stands for query, and it's the search term for an ingredient or a recipe
+    q: search
+};
+
+  $.ajax({
+    // send the request to the API endpoint
+    url: apiEndpoint,
+    // the request data we're sending
+    data: apiData,
+    // we want to receive a JSON object
+    dataType: 'jsonp',
+  })
+
+ // what to do when the API responds with some data
+  .done(function(response)  {
+
+      // at this point we can call the callback function
+      console.log(response);
+
+      for (var i = 0; i < response.hits.length; i ++){
+      //for the html, make a list element
+      var listel = $("<li class = 'span3 gallery-item'> </li>");
+
+
+      //make a new span element and append inside the list elemtn
+      var spanel1 = $("<span class = 'gallery-hover-4col hidden-phone hidden-tablet'></span>");
+      $(listel).append(spanel1);
+
+      // make another span element. and inside that element put the picture inside the zoom picture
+      recipepic = response.hits[i].recipe.image; //this is the src of the image
+      var spanel2 = $("<span class = 'gallery-icons'> </span>");
+
+      var zoom = $("<a href = '" + recipepic + "' class = 'item-zoom-link lightbox'></a>");
+
+          //append it to the first span element
+          $(spanel2).append(zoom);
+          $(spanel1).append(spanel2);
+
+      //make link element and this is where you put the picture append it into the list element
+      instructionslink = response.hits[0].recipe.url;
+      var link = $("<a href= '" + instructionslink + "' </a>");
+      var foodie = $("<img src ='" + recipepic + "'>");
+      $(link).append(foodie);
+      $(listel).append(link);
+
+      //make another span object, this will contain the link the website and list of ingredients
+      recipename = response.hits[i].recipe.label;
+      calories = parseInt(response.hits[i].recipe.calories);
+      var spanel3 = $("<span class = 'project-details'> Calories: "+ calories + "</span>");
+      var link2 = $("<a href ='" + instructionslink + "'>" + recipename +"</a>");
+      $(spanel3).append(link2);
+      $(listel).append(spanel3);
+
+      //append it to the class gallery-post-grid
+      $(".rpics").append(listel);
+}
+  });
+
+
+
+}

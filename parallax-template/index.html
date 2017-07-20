@@ -8,14 +8,20 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="css/test.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <!-- Boostrap -->
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="css/test.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'">
+  <!-- <link rel="stylesheet" href="css2/bootstrap.css">
+  <link rel="stylesheet" href="css2/bootstrap-responsive.css">
+  <link rel="stylesheet" href="css2/prettyPhoto.css" /> -->
+  <link rel="stylesheet" href="css2/custom-styles.css">
+<!-- Boostrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
   <!-- Google map api script  -->
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBEylmL-dj2EJ784FZAvrx677Y3Be19sg&callback=initMap" type="text/javascript"></script>
+
 
 </head>
 
@@ -81,9 +87,9 @@
     </div>
    </div>
 
-  <!-- Middle navigation bar -->
-  <nav class="white" role="navigation">
-    <div class="nav-wrapper container" id="middlenav01">
+    <!-- search box -->
+<nav class="white directionSearch" role="navigation">
+    <div class="nav-wrapper container " id = "middlenav">
       <div class="col-lg-3">
       </div>
 
@@ -112,9 +118,9 @@
   <div class="container">
     <div class="section">
       <!--   Icon Section   -->
-      <div class="row">
+      <div class="row bbox">
         <div class="col s12 m4">
-          <div class="icon-block">
+          <div class="icon-block " >
 
             <h2 class="center brown-text"><i class="material-icons">view_list</i></h2>
             <h6 class="center">Restaurants Nearby</h6>
@@ -124,9 +130,9 @@
         </div>
 
         <div class="col s12 m8">
-          <div class="icon-block">
-            <h2 class="center brown-text"><i class="material-icons">group</i></h2>
-            <h5 class="center">Reviews</h5>
+          <div class="icon-block lol" >
+            <h2 class="center brown-text "><i class="material-icons">group</i></h2>
+            <h5 class="center ">Reviews</h5>
 
             <p class="light oops" id="right-panel"></p>
           </div>
@@ -141,15 +147,19 @@
 
 
 
-  <!-- <div class="row">
-    <div class="col s12 center">
-      <h3><i class="mdi-content-send brown-text"></i></h3>
-      <h4>Pictures</h4>
-      <p class="left-align light">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam scelerisque id nunc nec volutpat. Etiam pellentesque tristique arcu, non consequat magna fermentum ac. Cras ut ultricies eros. Maecenas eros justo, ullamcorper a sapien id, viverra
-        ultrices eros. Morbi sem neque, posuere et pretium eget, bibendum sollicitudin lacus. Aliquam eleifend sollicitudin diam, eu mattis nisl maximus sed. Nulla imperdiet semper molestie. Morbi massa odio, condimentum sed ipsum ac, gravida ultrices
-        erat. Nullam eget dignissim mauris, non tristique erat. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-    </div>
-  </div> -->
+      <div class="row recipediv" style = "display: none; margin-left: 100px; margin-right: 50px;">
+        <div class="col s12 center ">
+          <h3><i class="mdi-content-send brown-text"></i></h3>
+          <h4>If You Wanna Stay in Jammies:</h4>
+          <div class="row clearfix rbox">
+              <ul class="gallery-post-grid holder rpics">
+
+              </ul>
+          </div>
+        </div>
+      </div>
+
+
 
 
 
@@ -167,7 +177,7 @@
     <div class="container">
       <div class="row">
         <div class="col l6 s12">
-          <h5 class="white-text">Team Bio</h5>
+          <h7 class="white-text">Team Bio</h7>
           <p class="grey-text text-lighten-4">We are a team of fledgling, not-yet calloused developers working on this project like it's our full time job. We love food and trying new places and created this website so you can too. </p>
         </div>
         <div class="col l3 s12">
@@ -175,8 +185,8 @@
 
         </div>
         <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
-          <div id="hello">
+          <h8 class="white-text">Connect</h8>
+          <div id = "hello">
             <li><a class="white-text" href="https://aaronkwalker.github.io/Basic-Portfolio/">Aaron Walker</a></li>
             <li><a class="white-text" href="https://ashxdiep.github.io/">Ashley Diep</a></li>
             <li><a class="white-text" href="https://hfrodriguez928.github.io/Bootstrap-Portfolio/">Hayley Rodriguez</a></li>
