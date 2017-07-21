@@ -1,5 +1,3 @@
-
-
 //hide directions bar
 //hide the search bar and button
 $(".directionSearch").hide();
