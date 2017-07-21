@@ -21,13 +21,11 @@
 
 .directions {
 	cursor:pointer;
-	font-weight:bold;
+	color: #0000FF;
 }
 
-reviewer {
-
+.directions:hover {
+	color: red;
+	cursor:pointer;
+	text-decoration: underline;
 }
-/*address
-#directions
-cuisine 
-*/
