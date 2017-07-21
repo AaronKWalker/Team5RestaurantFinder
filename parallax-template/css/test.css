@@ -1,7 +1,7 @@
-#name {
+.name {
 	font-weight: bold;
 }
-#name:hover {
+.name:hover {
 	font-size: 150%;
 	cursor:pointer;
 	text-decoration: underline;

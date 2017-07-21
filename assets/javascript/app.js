@@ -381,6 +381,7 @@ function makeDivforReviewers(reviewer, thumbnail, reviewDate, reviewRating, rdes
 
   //append div2 to document
   $(".oops").append(div2);
+  $(".oops").show();
 
 }
 
