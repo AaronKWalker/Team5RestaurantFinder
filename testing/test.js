@@ -5,6 +5,7 @@
 $(".directionSearch").hide();
 $(".bbox").hide();
 $(".lol").hide();
+$("#right-panel").hide();
 //var for zomato API
 var zoAPI = "394d1e7d79d05683913b696732d33f83";
 
@@ -20,7 +21,7 @@ var markerLatLong;
 var startAddress;
 var markerArray = [];
 var addressArray = [];
-var restIndex;
+var restIndex =0;
 
 //lat & long variables
 var latitude;
@@ -149,6 +150,7 @@ var locationURL ="https://developers.zomato.com/api/v2.1/search?entity_id=" + ci
       currency = response.restaurants[i].restaurant.currency;
       resID = response.restaurants[i].restaurant.id;
 
+      console.log("name:" + name);
 
       //make a div which appends to restaurants nearby
       makeDivforNearbyR(resID, name, website, address, rating, cuisine, currency);
@@ -196,7 +198,7 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
 
   $(newdiv).append(divforStars);
 
-  var rname = $("<p id = 'name'></p>");
+  var rname = $("<p class='name'></p>");
   //set data-name to name
   $(rname).attr("data-name", resID);
   $(rname).html(name);
@@ -222,8 +224,18 @@ function makeDivforNearbyR( resID, name, website, address, rating, cuisine, curr
 
   }
 
+
+  //whenever the "directions" text is clicked
+  $(".light1").on("click", ".directions", function(){
+    var grabbedIndex = $(this).attr("data");
+    console.log(grabbedIndex);
+    console.log(addressArray[grabbedIndex]);
+    markerLatLong = addressArray[grabbedIndex];
+    $(".directionSearch").show();
+  });
+
   //whenever the name of place is clicked
-  $(document).on("click", "#name", function(){
+  $(".light1").on("click", ".name", function(){
 
 
   //retrieve dataname value from whats clicked (This is the resID)
@@ -421,6 +433,7 @@ function showDirections () {
   };
 
   onChangeHandler();
+  $("#right-panel").show();
 }
 
 
